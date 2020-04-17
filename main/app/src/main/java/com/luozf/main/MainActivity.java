@@ -19,15 +19,22 @@ import com.morgoo.helper.Log;
 
 import java.security.Permissions;
 
+import javax.security.auth.callback.Callback;
+
+import luozf.base.BaseActivity;
+import luozf.utils.PermissionU;
+import luozf.utils.ToastU;
+
 /**
  * 主界面
  * 此项目旨在能将所有需要学习的动作整合在一起，并且每个知识点相对独立，可有独立运行的demo，提高运行速度
  * 因此考虑接入插件化技术，此为宿主工程，其他知识点将作为插件存在
+ *
  * @author luozf
  * @version V1.0.0
  * @date 2020/3/9
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     /**
      * 安装文本
@@ -39,30 +46,32 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+//                        PluginUtil.installPlugin("TestPlugin-debug.apk");
+        PluginUtil.installPlugin("pluginmodule-debug.apk");
         installTv = findViewById(R.id.main_install_plugin);
         installTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},0);
-                    PluginUtil.installPlugin("TestPlugin-debug.apk");
-
-                    PackageInfo info = getPackageManager().getPackageArchiveInfo(PluginUtil.getPluginPath("TestPlugin-debug.apk"), PackageManager.GET_ACTIVITIES);
-//                    PackageManager pm = getPackageManager();
-//                    Intent intent = pm.getLaunchIntentForPackage(info.packageName);
-
-//                    Intent intent = new Intent();
-//                    intent.setClassName("com.example.TestPlugin","MainActivity");
-                    PackageManager pm = getPackageManager();
-                    Intent intent = pm.getLaunchIntentForPackage("com.example.TestPlugin");
-                    if (intent != null) {
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                    } else {
-                        Log.e("Test","intent is null");
+                PermissionU.checkSavePermission(new PermissionU.PermissionCallBack() {
+                    @Override
+                    public void onSuccess() {
+//                        PluginUtil.startPluginActivity("TestPlugin-debug.apk", "com.example.TestPlugin.MainActivity");
+                        PluginUtil.startPluginActivity("pluginmodule-debug.apk", "com.example.pluginmodule.MainActivity");
                     }
-                }
+
+                    @Override
+                    public void onDenied() {
+                        ToastU.show("没有权限");
+                    }
+                });
             }
         });
+    }
+
+    @Override
+    protected boolean needCheckSavePermission() {
+//        TODO: BaseActivity需要修改
+        return true;
     }
 }
