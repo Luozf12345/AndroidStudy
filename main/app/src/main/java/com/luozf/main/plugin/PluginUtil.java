@@ -1,6 +1,7 @@
 package com.luozf.main.plugin;
 
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -15,13 +16,26 @@ import com.example.plugin_library.PluginManager;
 import com.luozf.main.MainActivity;
 import com.luozf.main.MyApplication;
 import com.luozf.main.R;
+import com.qihoo360.replugin.RePlugin;
+import com.qihoo360.replugin.model.PluginInfo;
 
 import java.io.File;
 import java.security.Permission;
 
+import luozf.utils.ToastU;
+
 /**
  * 插件化工具，用于管理插件。
- * TODO: 后面需自己实现的，当前先用DroidPlugin
+ * TODO: 后面需自己实现的，当前先用DroidPlugin:
+ * DroidPlugin接入问题：
+ * 1.没有创建PM权限。因此放弃该方案。
+ *
+ * RePlugin接入问题：
+ * 1.gradle冲突：需引入2.3.3，否则低版本可能和gradle4.+冲突
+ * 2.androidx冲突：暂未兼容，放弃Androidx
+ * 3.Failed to apply plugin [id 'replugin-plugin-gradle']：降级classpath 'com.android.tools.build:gradle:3.2.0'
+ * 4.电脑警告Android_Syringe.T病毒：回家再试
+ *
  * @author luozf
  * @date 2020/4/11
  */
@@ -36,6 +50,7 @@ public class PluginUtil {
     public static void init(){
         com.example.plugin_library.PluginManager.getInstance().init(MyApplication.getContext());
         Log.i("Test","plugin util init");
+        RePlugin.App.onCreate();
     }
 
     /**
@@ -46,8 +61,17 @@ public class PluginUtil {
      */
     public static void installPlugin(String pluginName){
 
-        String path = getPluginPath(pluginName);
-        PluginManager.getInstance().installPlugin(path);
+        PluginInfo info = RePlugin.install(getPluginPath(pluginName));
+        if (info == null){
+            ToastU.showd("安装失败");
+        } else {
+            ToastU.showd(info.toString());
+        }
+
+//        String path = getPluginPath(pluginName);
+//        PluginManager.getInstance().installPlugin(path);
+
+
 //        try {
 //
 //            String path = getPluginPath(pluginName);
@@ -91,8 +115,13 @@ public class PluginUtil {
      */
     public static void startPluginActivity(String pluginName,String activityName){
 
-        String apkPath = getPluginPath(pluginName);
-        PluginManager.getInstance().startPluginActivity(apkPath,activityName);
+//        Intent intent = new Intent();
+//        intent.setComponent(new ComponentName("demo2",
+//                "com.qihoo360.replugin.sample.demo2.databinding.DataBindingActivity"));
+//        MyApplication.getContext().startActivity(intent);
+
+//        String apkPath = getPluginPath(pluginName);
+//        PluginManager.getInstance().startPluginActivity(apkPath,activityName);
 
 //        PackageInfo info = MyApplication.getContext().getPackageManager().getPackageArchiveInfo(PluginUtil.getPluginPath("TestPlugin-debug.apk"), PackageManager.GET_ACTIVITIES);
 ////                    PackageManager pm = getPackageManager();

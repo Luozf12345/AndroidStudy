@@ -10,7 +10,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+//import androidx.appcompat.app.AppCompatActivity;
+
 
 import com.luozf.main.plugin.PluginUtil;
 import com.morgoo.droidplugin.PluginHelper;
@@ -21,7 +22,7 @@ import java.security.Permissions;
 
 import javax.security.auth.callback.Callback;
 
-import luozf.base.BaseActivity;
+//import luozf.base.BaseActivity;
 import luozf.utils.PermissionU;
 import luozf.utils.ToastU;
 

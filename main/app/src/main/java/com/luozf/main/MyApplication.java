@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.luozf.main.plugin.PluginUtil;
 import com.morgoo.droidplugin.PluginHelper;
+import com.qihoo360.replugin.RePluginApplication;
 
 import luozf.UtilsComm;
 
@@ -13,7 +14,7 @@ import luozf.UtilsComm;
  * @author luozf
  * @date 2020/4/11
  */
-public class MyApplication extends Application {
+public class MyApplication extends RePluginApplication {
 
     private static Context mContext;
 
