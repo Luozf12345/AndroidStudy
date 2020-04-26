@@ -13,6 +13,7 @@ import android.widget.Toast;
 //import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.luozf.main.flutter.FlutterManager;
 import com.luozf.main.plugin.PluginUtil;
 import com.morgoo.droidplugin.PluginHelper;
 import com.morgoo.droidplugin.pm.PluginManager;
@@ -23,6 +24,7 @@ import java.security.Permissions;
 import javax.security.auth.callback.Callback;
 
 //import luozf.base.BaseActivity;
+import io.flutter.app.FlutterActivity;
 import luozf.utils.PermissionU;
 import luozf.utils.ToastU;
 
@@ -41,6 +43,10 @@ public class MainActivity extends BaseActivity {
      * 安装文本
      */
     private TextView installTv;
+    /**
+     * 启动Flutter
+     */
+    private TextView startFlutterTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +72,15 @@ public class MainActivity extends BaseActivity {
                         ToastU.show("没有权限");
                     }
                 });
+            }
+        });
+
+
+        startFlutterTv = findViewById(R.id.main_start_flutter);
+        startFlutterTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FlutterManager.getInstance().startFlutterActivity(MainActivity.this);
             }
         });
     }

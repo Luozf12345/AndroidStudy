@@ -14,4 +14,13 @@
         android:text="安装插件"
         android:layout_centerInParent="true"/>
 
+    <TextView
+        android:id="@+id/main_start_flutter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="启动Flutter"
+        android:layout_below="@id/main_install_plugin"
+        android:layout_centerHorizontal="true"/>
+
 </RelativeLayout>
