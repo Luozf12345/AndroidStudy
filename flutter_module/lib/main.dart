@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttermodule/util/platform_util.dart';
 
 void main() => runApp(MyApp());
 
@@ -44,7 +45,7 @@ class _HomePageState extends State<HomePage> {
                 count++;
               });
             },
-            child: Text("跳到原生SubActivity $count"),
+            child: Text("跳到原生SubActivity $count \n isWeb： ${PlatformUtil.isWeb}"),
           )),
     );
   }
