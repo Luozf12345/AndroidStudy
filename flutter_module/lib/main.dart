@@ -1,7 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:fluttermodule/util/platform_util.dart';
 
-void main() => runApp(MyApp());
+import 'package:flutter/material.dart';
+
+import 'home.dart';
+import 'route/RouteManager.dart';
+
+
+var strings;
+void main() {
+  RouteManager.initHref();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -9,6 +17,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      initialRoute: RouteManager.initialRoute,
+      onGenerateRoute: RouteManager.onGenerateRoute(),
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -25,29 +35,4 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-
-  int count = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-          alignment: Alignment.center,
-          child: GestureDetector(
-            onTap: (){
-              setState(() {
-                count++;
-              });
-            },
-            child: Text("跳到原生SubActivity $count \n isWeb： ${PlatformUtil.isWeb}"),
-          )),
-    );
-  }
-}
 
