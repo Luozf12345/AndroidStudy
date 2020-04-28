@@ -1,27 +1,15 @@
 package com.luozf.main.plugin;
 
 
-import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
+
 import android.os.Environment;
-import android.os.RemoteException;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.example.plugin_library.PluginConst;
 import com.example.plugin_library.PluginManager;
-import com.luozf.main.MainActivity;
 import com.luozf.main.MyApplication;
-import com.luozf.main.R;
-
-import java.io.File;
-import java.security.Permission;
 
 /**
  * 插件化工具，用于管理插件。
- * TODO: 后面需自己实现的，当前先用DroidPlugin
+ * 后面需自己实现的，当前先用DroidPlugin:DroidPlugin已不维护，放弃该方案
  * @author luozf
  * @date 2020/4/11
  */
