@@ -1,6 +1,8 @@
 include ':app'
 include ':plugin_library'
 include ':pluginmodule'
+include ':doc'
+project(':doc').projectDir = new File('../doc')
 
 // Flutter
 //setBinding(new Binding([gradle: this]))
