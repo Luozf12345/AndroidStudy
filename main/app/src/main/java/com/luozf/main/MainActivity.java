@@ -64,7 +64,7 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public void onSuccess() {
 //                        PluginUtil.startPluginActivity("TestPlugin-debug.apk", "com.example.TestPlugin.MainActivity");
-                        PluginUtil.startPluginActivity("pluginmodule-debug.apk", "com.example.pluginmodule.MainActivity");
+                        PluginUtil.startPluginActivity(MainActivity.this,"com.example.pluginmodule", "com.example.pluginmodule.MainActivity");
                     }
 
                     @Override

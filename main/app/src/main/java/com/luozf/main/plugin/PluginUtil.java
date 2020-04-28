@@ -2,6 +2,7 @@ package com.luozf.main.plugin;
 
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -24,6 +25,8 @@ import java.security.Permission;
 
 import luozf.utils.ToastU;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 /**
  * 插件化工具，用于管理插件。
  * TODO: 后面需自己实现的，当前先用DroidPlugin:
@@ -34,7 +37,8 @@ import luozf.utils.ToastU;
  * 1.gradle冲突：需引入2.3.3，否则低版本可能和gradle4.+冲突
  * 2.androidx冲突：暂未兼容，放弃Androidx
  * 3.Failed to apply plugin [id 'replugin-plugin-gradle']：降级classpath 'com.android.tools.build:gradle:3.2.0'
- * 4.电脑警告Android_Syringe.T病毒：回家再试
+ * 4.电脑警告Android_Syringe.T病毒：电脑问题，重启后可以运行
+ * 5.ActivityNotFoundException:不能用context.startActivity，用Replugin.startActivity后正常；而且Context只能用Activity，用Application会报错
  *
  * @author luozf
  * @date 2020/4/11
@@ -65,7 +69,7 @@ public class PluginUtil {
         if (info == null){
             ToastU.showd("安装失败");
         } else {
-            ToastU.showd(info.toString());
+            ToastU.showd(info.getName());
         }
 
 //        String path = getPluginPath(pluginName);
@@ -110,15 +114,18 @@ public class PluginUtil {
     /**
      * 跳转插件页
      *
+     * @param context 上下文，目前只能传Activity，传Application会报错
      * @author luozf
      * @date 2020/4/13
      */
-    public static void startPluginActivity(String pluginName,String activityName){
+    public static void startPluginActivity(Context context, String pluginName, String activityName){
 
-//        Intent intent = new Intent();
-//        intent.setComponent(new ComponentName("demo2",
-//                "com.qihoo360.replugin.sample.demo2.databinding.DataBindingActivity"));
-//        MyApplication.getContext().startActivity(intent);
+        //
+//        Intent intent = RePlugin.createIntent("com.qihoo360.replugin.sample.demo1", "com.qihoo360.replugin.sample.demo1.MainActivity");
+//        intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+//        intent.setComponent(new ComponentName("com.qihoo360.replugin.sample.demo1", "com.qihoo360.replugin.sample.demo1.MainActivity"));
+//        mainActivity.startActivity(intent);
+        RePlugin.startActivity(context, RePlugin.createIntent(pluginName, activityName));
 
 //        String apkPath = getPluginPath(pluginName);
 //        PluginManager.getInstance().startPluginActivity(apkPath,activityName);
