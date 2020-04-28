@@ -29,7 +29,8 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 /**
  * 插件化工具，用于管理插件。
- * TODO: 后面需自己实现的，当前先用DroidPlugin:
+ * TODO: 后面需自己实现的，
+ * 最先使用DroidPlugin:
  * DroidPlugin接入问题：
  * 1.没有创建PM权限。因此放弃该方案。
  *
