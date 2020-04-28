@@ -39,6 +39,7 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
  * 3.Failed to apply plugin [id 'replugin-plugin-gradle']：降级classpath 'com.android.tools.build:gradle:3.2.0'
  * 4.电脑警告Android_Syringe.T病毒：电脑问题，重启后可以运行
  * 5.ActivityNotFoundException:不能用context.startActivity，用Replugin.startActivity后正常；而且Context只能用Activity，用Application会报错
+ * 6.TODO：Replugin直接打开Flutter会黑屏，无法展示。后面再处理。
  *
  * @author luozf
  * @date 2020/4/11

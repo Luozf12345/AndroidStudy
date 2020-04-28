@@ -24,7 +24,6 @@ import java.security.Permissions;
 import javax.security.auth.callback.Callback;
 
 //import luozf.base.BaseActivity;
-import io.flutter.app.FlutterActivity;
 import luozf.utils.PermissionU;
 import luozf.utils.ToastU;
 
@@ -55,7 +54,7 @@ public class MainActivity extends BaseActivity {
 
 
 //                        PluginUtil.installPlugin("TestPlugin-debug.apk");
-        PluginUtil.installPlugin("pluginmodule-debug.apk");
+        PluginUtil.installPlugin("app-debug.apk");
         installTv = findViewById(R.id.main_install_plugin);
         installTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +63,7 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public void onSuccess() {
 //                        PluginUtil.startPluginActivity("TestPlugin-debug.apk", "com.example.TestPlugin.MainActivity");
-                        PluginUtil.startPluginActivity(MainActivity.this,"com.example.pluginmodule", "com.example.pluginmodule.MainActivity");
+                        PluginUtil.startPluginActivity(MainActivity.this,"com.example.flutter_app", "com.example.flutter_app.MainActivity");
                     }
 
                     @Override

@@ -7,8 +7,8 @@ import android.content.Intent;
 import com.luozf.main.MainActivity;
 import com.luozf.main.MyApplication;
 
-import io.flutter.app.FlutterActivity;
-import io.flutter.view.FlutterMain;
+//import io.flutter.app.FlutterActivity;
+//import io.flutter.view.FlutterMain;
 import luozf.utils.LogU;
 
 /**
@@ -51,11 +51,11 @@ public class FlutterManager {
             return;
         }
         // 启动Activity之前，必须先初始化，否则会报错
-        FlutterMain.Settings settings = new FlutterMain.Settings();
-        settings.setLogTag("flutter_log");
-        FlutterMain.startInitialization(MyApplication.getContext(),settings);
-
-        Intent intent = new Intent(context, FlutterActivity.class);
-        context.startActivity(intent);
+//        FlutterMain.Settings settings = new FlutterMain.Settings();
+//        settings.setLogTag("flutter_log");
+//        FlutterMain.startInitialization(MyApplication.getContext(),settings);
+//
+//        Intent intent = new Intent(context, FlutterActivity.class);
+//        context.startActivity(intent);
     }
 }
