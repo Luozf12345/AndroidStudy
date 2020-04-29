@@ -1,16 +1,20 @@
 import 'dart:ui';
 
 import '../../util/string_util.dart';
+import '../interface.dart';
 
-class DiffRouteUtil {
+/// 路由区分工具
+class DiffRouteUtilImpl implements DiffRouteUtil{
 
   /// 初始化路由
-  static String initialRoue() {
+  @override
+  String initialRoute() {
     return getRouteName(window.defaultRouteName);
   }
 
   /// 获取真正的路由名称
-  static String getRouteName(String string){
+  @override
+  String getRouteName(String string){
     String path = string;
     if(StringUtil.isEmpty(path)){
       return "";

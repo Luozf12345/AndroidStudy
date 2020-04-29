@@ -1,17 +1,21 @@
 import 'dart:html';
 
+import 'package:fluttermodule/platform/interface.dart';
+
 import '../../util/string_util.dart';
 
-class DiffRouteUtil {
+class DiffRouteUtilImpl implements DiffRouteUtil{
 
 
   /// 初始化路由
-  static String initialRoue() {
+  @override
+  String initialRoute() {
     return getRouteName(window.location.href);
   }
 
   /// 获取真正的路由名称
-  static String getRouteName(String string){
+  @override
+  String getRouteName(String string){
     String url = string;
     String protocol = window.location.protocol;
     String host = window.location.host;

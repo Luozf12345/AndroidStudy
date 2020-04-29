@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:fluttermodule/route/routes.dart';
+import 'package:fluttermodule/platform/interface.dart';
+import 'package:fluttermodule/route/route_cup.dart';
 import 'package:fluttermodule/util/string_util.dart';
 
 import '../home.dart';
-import '../diff/web/diff_route_util.dart' if(dart.library.io) "../util/diff_route_util.dart" as platform;
 
 /// 路由管理器
 class RouteManager {
@@ -13,7 +13,7 @@ class RouteManager {
 
   /// 如果是网页打开，在此获取url地址，并跳转相应路径
   static void initHref() {
-    _initialRoue = platform.DiffRouteUtil.initialRoue();
+    _initialRoue = Diff.diffRouteUtil.initialRoute();
   }
 
 
@@ -27,11 +27,11 @@ class RouteManager {
   static RouteFactory onGenerateRoute(){
     return (setting){
       return PageRouteBuilder(settings: setting,pageBuilder: (context,animation1,animation2){
-        String name = platform.DiffRouteUtil.getRouteName(setting.name);
+        String name = Diff.diffRouteUtil.getRouteName(setting.name);
         if(StringUtil.isEmpty(name) || name == "/"){
           return _defaultPage;
         }
-        PageFactory pageFactory =  routes[name];
+        PageFactory pageFactory =  RouteCup.routeMap[name];
         if(pageFactory != null){
           return pageFactory();
         }
