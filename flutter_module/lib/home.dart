@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttermodule/route/RouteManager.dart';
 import 'package:fluttermodule/route/route_cup.dart';
 
-import 'platform/platform_util.dart';
-
 /// 首页
 class HomePage extends StatefulWidget {
   @override
@@ -23,7 +21,7 @@ class _HomePageState extends State<HomePage> {
             onTap: (){
               RouteManager.push(context, RouteCup.BLOG);
             },
-            child: Text("打开blog \n isWeb： ${PlatformUtil.isWeb}"),
+            child: Text("打开blog}"),
           )),
     );
   }
