@@ -19,19 +19,39 @@
         function javacalljswithargs(data){
              document.getElementById("content").innerHTML +=
                  ("<br\>"+data);
+
+
         }
 
         function bridge(args) {
             var ret = window.jsBridge.bridge(args)
             document.getElementById("content").innerHTML +=
                 ("<br\>"+ret);
+
+        }
+
+        function addListener(){
+            var hiddenProperty = 'hidden' in document ? 'hidden' : 'webkitHidden' in document ? 'webkitHidden' : 'mozHidden' in document ? 'mozHidden' : null;
+            console.log(hiddenProperty);
+
+            document.addEventListener('visibilitychange', () => {
+              if (document[hiddenProperty]) {
+                //当离开H5 跳转到app原生的页面时,这里会被触发
+                window.jsBridge.bridge('页面隐藏了');
+              } else {
+                //当从原生页面用户一系列操作后,返回H5的时候,这里会被触发
+                window.jsBridge.bridge('页面展示了');
+              }
+            });
+
+            window.jsBridge.bridge('添加监听成功');
         }
 
     </script>
 </head>
 <body>
 <br/><br/>
-<li><a onClick="bridge('123456')">点击调用java代码</a></li>
+<li><a onClick="addListener()">添加显示隐藏监听器</a></li>
 <!--可以将android端传过来的数据，处理后,放在这里再传给android端-->
 <li><a onClick="bridge('我是网页传出来的数据')">点击调用java代码并传递参数</a></li><br/>
 <div id="content">内容显示</div>

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:fluttermodule/util/channel_util.dart';
 
 import 'home.dart';
 import 'route/RouteManager.dart';
@@ -8,6 +9,7 @@ import 'route/RouteManager.dart';
 var strings;
 void main() {
   RouteManager.initHref();
+  ChannelUtil.init();
   runApp(MyApp());
 }
 

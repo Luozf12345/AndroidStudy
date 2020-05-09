@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">WebViewDemo</string>
+    <string name="next">下一页</string>
+    <string name="sub">sub</string>
 </resources>
