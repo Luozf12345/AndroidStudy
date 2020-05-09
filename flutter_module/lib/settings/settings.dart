@@ -17,7 +17,7 @@ class Settings {
   }
 
   /// true：打开原生界面WebView，false：使用webview_flutter;只在混合模式下有效。
-  bool useNativeWeb = false;
+  bool useNativeWeb = true;
 }
 
 typedef OnSettingsChange = void Function();

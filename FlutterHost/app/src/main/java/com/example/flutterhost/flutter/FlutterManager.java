@@ -8,6 +8,7 @@ import com.example.flutterhost.MyFlutterActivity;
 
 import io.flutter.app.FlutterActivity;
 import io.flutter.view.FlutterMain;
+import io.flutter.view.FlutterRunArguments;
 import io.flutter.view.FlutterView;
 import luozf.utils.LogU;
 
@@ -30,6 +31,10 @@ import luozf.utils.LogU;
  * 遇到问题：
  * 1.启动失败：FlutterActivity未在Manifest注册，需要注册才能启动
  * 2.ensureInitializationComplete must be called after startInitialization：在启动FlutterActivity之前，调用FlutterMain.startInitialization()初始化引擎
+ * 3.Check failed: g_flutter_main. ensureInitializationComplete must have already been called：需调用FlutterMain.ensureInitializationComplete（）
+ * 4.启动之后黑屏：必须调flutterView.start()才能看到。完整使用应调用FlutterView完整周期。
+ * 5.第二次打开闪退：addView(FlutterView)之前，必须先将FlutterVieW从上次的parent中移除
+ *
  * @author luozf
  * @date 2020/4/26
  */
@@ -55,17 +60,31 @@ public class FlutterManager {
             LogU.e("context is null");
             return;
         }
-        // 启动Activity之前，必须先初始化，否则会报错
-        FlutterMain.Settings settings = new FlutterMain.Settings();
-        settings.setLogTag("flutter_log");
-        FlutterMain.startInitialization(MyApplication.getContext(),settings);
 
         Intent intent = new Intent(context, MyFlutterActivity.class);
         context.startActivity(intent);
     }
 
     public FlutterView createFlutterView(Context context){
-        flutterView = new FlutterView(context);
+        if (flutterView == null) {
+            // 启动Activity之前，必须先初始化，否则会报错
+            FlutterMain.Settings settings = new FlutterMain.Settings();
+            settings.setLogTag("flutter_log");
+            FlutterMain.startInitialization(MyApplication.getContext(),settings);
+            // 要初始化，且要确认初始化完成，否则报错[FATAL:flutter/shell/platform/android/flutter_main.cc(50)] Check failed: g_flutter_main. ensureInitializationComplete must have already been called
+            FlutterMain.ensureInitializationComplete(context.getApplicationContext(), null);
+
+
+            flutterView = new FlutterView(context);
+            flutterView.onStart();
+            FlutterRunArguments args = new FlutterRunArguments();
+            args.bundlePath = "flutter_assets";
+            args.entrypoint = "main";
+            flutterView.runFromBundle(args);
+
+            // 初始化flutter
+            ChannelUtil.init();
+        }
         return flutterView;
     }
 
